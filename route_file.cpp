@@ -81,6 +81,7 @@ void route::show_table()
 }
 int main()
 {
+    cout<<"      "<<endl;//ÎÞËùÎ½µÄ
     route a;
     a.for_file();
     a.show_table();
