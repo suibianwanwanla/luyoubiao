@@ -1,0 +1,50 @@
+# depslib dependency file v1.0
+1483965122 source:f:\oj\stage\main.cpp
+	<iostream>
+	"global.h"
+
+1483965370 f:\oj\stage\global.h
+	"route.h"
+
+1483961401 source:f:\oj\stage\init.cpp
+	"global.h"
+
+1483962336 source:f:\oj\stage\file.cpp
+	"global.h"
+
+1483961869 source:f:\oj\stage\routeshow.cpp
+	"global.h"
+
+1483963904 source:f:\oj\stage\find.cpp
+	"global.h"
+
+1483962296 source:f:\oj\stage\groupshow.cpp
+	"global.h"
+
+1483963810 source:f:\oj\stage\print.cpp
+	"global.h"
+
+1483961524 source:f:\oj\stage\routecreat.cpp
+	"global.h"
+
+1483964085 source:f:\oj\stage\kruscal.cpp
+	"global.h"
+
+1483964635 source:f:\oj\stage\cmd.cpp
+	"global.h"
+
+1483965306 f:\oj\stage\route.h
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<conio.h>
+	<string.h>
+	<cstdio>
+	<cstring>
+	<algorithm>
+
+1483965329 source:f:\oj\stage\route.cpp
+	"route.h"
+	"global.h"
+
