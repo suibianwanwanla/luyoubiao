@@ -1,92 +1,83 @@
 #include <iostream>
 #include <fstream>
+#define max 17
 using namespace std;
-struct vex
+typedef struct ArCell
 {
-    int number;
-    char a[20]={0};//路由信息
-};
-class route
+int adj;    //路径长度
+}ArCell,AdjMatrix[max][max];
+//train t[MAX_VERTEX_NUM];
+
+typedef struct   //图中顶点表示主要城市，存放城市的编号、名称、简介等信息，
 {
-private:
-    struct vex*ifon[100];
-    int num=0;//路由器的个数
-public:
-    void into_ifon();
-    void output_ifon();
-    void show_code();
-};
-void route::into_ifon()
+int numrou;//路由编号
+char introduction[100]={0};//网络信息
+//int money;
+//int needtime;
+}infotype;
+
+typedef struct//整体图的信息
+{
+infotype vexs[max];
+AdjMatrix arcs;
+int vexnum,arcnum;//路由数目是 vexnum
+}MGraph;
+MGraph b;
+void in_file()
 {
     ifstream in("mingwang.txt",ios::in);
     if(!in.is_open())
     {
-        cout<<"this is a empty file!"<<endl;
+        cout<<"can't find the file!"<<endl;
     }
     else
     {
-        int i,j,k,p;
-        j=k=p=0;
+        int i,j,k;
+        k=i=0;
+        b.vexs[i].numrou=i;
         while(!in.eof())
         {
-            if(k==0)
-                ifon[j]=new vex;
-            i=in.get();
-            if(i<58&&i>48&&k==0)
+            j=in.get();
+            if(j=='\n')
             {
-                i=i-48;
-                ifon[j]->number=i;
-                cout<<ifon[j]->number;
-                k=1;//标志着路由器的号码
+                i++;
+                k=0;
+                b.vexs[i].numrou=i;
             }
-            else if(i==10)
+            else
             {
-                k=0;//k换行的标志信息
-                p=0;//字符串在第二个数组中重新开始输入
-                j++;//进入第二个结构体数组
-                cout<<endl;
-            }
-            else if(k==1&&i!=10)
-            {
-                char b;
-                b=i;
-                //cout<<i<<" ";
-                cout<<b;
-                ifon[j]->a[p]=b;
-                //cout<<ifon[j]->a[p];
-                p++;
+                b.vexs[i].introduction[k]=j;
+                k++;
             }
         }
-        num=j+1;
+        b.vexnum=i;
     }
 }
-void route::show_code()
+void show_group()
 {
-    for(int i=0;i<num;i++)
+    int i=0;
+    while(i<b.vexnum+1)
     {
-        cout<<"路由器的号码为："<<ifon[i]->number<<"  ";
-        cout<<"网络号为："<<ifon[i]->a<<endl;
+        cout<<"路由器的编号为："<<b.vexs[i].numrou<<"   ";
+        cout<<"路由器的网络地址为："<<b.vexs[i].introduction<<endl;
+        i++;
     }
 }
-void route::output_ifon()
+void out_file()
 {
     ofstream out("mingkong.txt",ios::out);
-    for(int i=0;i<num;i++)
+    for(int i=0;i<b.vexnum+1;i++)
     {
-        out.put(ifon[i]->number+48);
-        out.put(32);
-        for(int k=0;ifon[i]->a[k]!='\0';k++)
+        for(int k=0;b.vexs[i].introduction[k]!='\0';k++)
         {
-            out.put(ifon[i]->a[k]);
+            out.put(b.vexs[i].introduction[k]);
         }
         out.put(10);
     }
 }
 int main()
 {
-    route a;
-    a.into_ifon();
-    a.show_code();
-    a.output_ifon();
-    return 0;
+    in_file();
+    show_group();
+    out_file();
 }
