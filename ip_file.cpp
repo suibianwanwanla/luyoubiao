@@ -55,6 +55,7 @@ void in_file()
 }
 void show_group()
 {
+    cout<<"asfvafaf";
     int i=0;
     while(i<b.vexnum+1)
     {
