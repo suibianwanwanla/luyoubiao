@@ -2,15 +2,15 @@
 #include"global.h"
 int*route::creates()
 {
-    for(int i=0;i<num;i++)
+    for(int i=0; i<num; i++)
         number[i]=i+1;
     return number;
 }
 void route::show_table()
 {
-    for(int p=0;p<num;p++)
+    for(int p=0; p<num; p++)
     {
-        for (int t=0;t<num;t++)
+        for (int t=0; t<num; t++)
             cout<<table[p][t]<<" ";
         cout<<endl;
     }
@@ -19,6 +19,7 @@ void route::ShortestPath_DIJ(MGraph * G)
 {
     int v,w,i,min,t=0,x,flag=1,v0;
     int final[20], D[20], p[20][20];
+    //cout<<G->vexnum<<"!!";
     while(flag)
     {
         printf("请输入一个起始路由编号:");
@@ -86,7 +87,7 @@ void route::ShortestPath_DIJ(MGraph * G)
             {
                 flags=2;
                 flagnum1=w;
-                cout<<flagnum1<<"!!!";
+                // cout<<flagnum1<<"!!!";
             }
             t++;
         }
@@ -210,13 +211,13 @@ void route:: CreatUDN0(MGraph *G)//增加路由信息
 {
     int i,j,k,w,midnums;
     char v1[20],v2[20];
-    printf("请输入路由的编号:、名称、简介:\n");
+//printf("请输入路由的编号:、名称、简介:\n");
     times=G->vexnum;
-    printf("路由编号:");
+    printf("分配到的路由编号:");
     ++times;
-    cin>>midnums;
+    cout<<times-1<<endl;
     G->vexs[times].numrou=times;
-    i=midnums-1;
+    i=times-1;
     printf("路由网络:");
     scanf("%s",G->vexs[i].introduction);
     G->vexnum=times;
