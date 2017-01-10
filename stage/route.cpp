@@ -32,6 +32,18 @@ void route::ShortestPath_DIJ(MGraph * G)
         if(v0>=0&&v0<G->vexnum)
             flag=0;
     }
+
+    int tree[max][max];
+    for(int u=0; u<max; u++)
+        //for(int p=0;p<max;p++)
+        tree[u][0]=v0;
+    for(int u=0; u<max; u++) //初始化路径数组
+        for(int p=0; p<max; p++)
+        {
+            if(p==0) continue;
+            tree[u][p]=max;
+        }
+
     for(v=0; v<G->vexnum; v++)
     {
         final[v]=0;
@@ -76,11 +88,14 @@ void route::ShortestPath_DIJ(MGraph * G)
     {
         int flags=0;
         flagnum1=-1;
+        int ff=1;
         for(w=0; w<G->vexnum; w++)
         {
             if(p[v][w]&&w!=v0)
             {
                 printf("-->%d",G->vexs[w].numrou);
+                tree[v][ff]=w;
+                ff++;
                 if(flags==0)flags=1;
             }
             if(flags==1) //for(int i=0;i<G->vexnum;i++)
@@ -98,6 +113,75 @@ void route::ShortestPath_DIJ(MGraph * G)
                 flagnum[v]=flagnum1;
         }
     }
+
+    int zz=1;
+    int a11[max];
+    for(int u=1; u<max; u++)
+        for(int p=1; p<max-u; p++)
+        {
+            if(tree[p][1]>tree[p+1][1])
+            {
+                for(int hh=1; hh<max; hh++)
+                    a11[hh]=tree[p][hh];
+                for(int hh=1; hh<max; hh++)
+                    tree[p][hh]=tree[p+1][hh];
+                for(int hh=1; hh<max; hh++)
+                    tree[p+1][hh]=a11[hh];
+            }
+        }
+    //for(int u=0;u<max;u++)
+    // for(int p=0;p<max;p++)
+    // if(p==max-1)cout<<tree[u][p]<<endl;
+    // else cout<<tree[u][p]<<" ";
+    cout<<"根"<<endl;
+    int biao[max];
+    for(int hh=0; hh<max; hh++)
+        biao[hh]=hh;
+    biao[v0]=-1;
+    cout<<v0<<endl;
+    int akk;
+    akk=tree[0][1];
+    for(int u=0; u<max; u++)
+    {
+        if(tree[u][1]==max)break;
+        for(int p=1; p<max; p++)
+        {
+            if(tree[u][p]==max)break;
+            akk=tree[u][p];
+            if(biao[akk]!=-1&&akk!=max)
+            {
+                cout<<" -->"<<tree[u][p];
+                //int akk;
+                akk=tree[u][p];
+                biao[akk]=-1;
+            }
+            else
+            {
+                if(akk!=max)cout<<" "<<"   ";
+            }
+            if(u!=0)
+            {
+                if(tree[u][1]!=tree[u+1][1]&&tree[u][1]!=tree[u-1][1])
+                {
+                    for(int hh=0; hh<max; hh++)
+                        biao[hh]=hh;
+                    biao[v0]=-1;
+                }
+            }
+            else
+            {
+                if(tree[u][1]!=tree[u+1][1]&&tree[u][1]!=tree[u-1][1])
+                {
+                    for(int hh=0; hh<max; hh++)
+                        biao[hh]=hh;
+                    biao[v0]=-1;
+                }
+            }
+        }
+        cout<<endl;
+    }
+
+
     for(int i=0; i<max; i++)
         for(int j=0; j<40; j++)
             internap[i][j]=G->vexs[i].introduction[j];
