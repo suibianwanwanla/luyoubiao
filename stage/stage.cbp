@@ -57,9 +57,6 @@
 		<Unit filename="menu.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="prime.cpp">
-			<Option target="Debug" />
-		</Unit>
 		<Unit filename="print.cpp">
 			<Option target="Debug" />
 		</Unit>

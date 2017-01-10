@@ -9,6 +9,7 @@ int father[max];//¸¸½Úµã
 edge e[max*max];//±ß
 int map[max][max];
 void print(MGraph *G);
+extern void menu();
 void menu()
 {
     cout<<"|------------²Ëµ¥---------------|"<<endl;
@@ -29,11 +30,9 @@ int main()
     A.init(&b);
     in_file();
     //show_group();
-    // cout<<b.vexnum<<"!!!";
+    out_file();
     cmd();
     A.complet(&b);
-    out_file();
-    A.into_file();
     return 0;
 }
 
