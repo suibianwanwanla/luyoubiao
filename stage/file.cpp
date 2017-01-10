@@ -2,38 +2,25 @@
 extern MGraph b;
 void route::into_file()
 {
-    ofstream out("copy.txt",ios::out);
-    char a;
-    int o=0;
-    while(o<num+1)
+    fstream out;
+    out.open("route.txt",ios::out);
+    int k;
+    k=0;
+    out<<num;
+    while(k<num)
     {
-        if(o==0)
-            out.put(35);
-        else
-        {
-            out.put(o+48);
-        }
-        o++;
-        out.put(32);
+        k++;
+        out<<" "<<k;
     }
-    out.put(10);
-    o=1;
-    for(int t=0;t<num;t++)
+    out<<'\n';
+    for(int i=0;i<num;i++)
     {
-        out.put(o+48);
-        out.put(32);
-        for(int i=0;i<num;i++)
-        {
-            if(table[t][i]==17)
-                a='m';
-            else
-                a=table[t][i]+48;
-            out.put(a);
-            out.put(32);
-        }
-        out.put(10);
-        o++;
+        out<<i+1;
+        for(int j=0;j<num;j++)
+            out<<" "<<table[i][j];
+        out<<'\n';
     }
+
 }
 void in_file()
 {
@@ -62,12 +49,13 @@ void in_file()
                 k++;
             }
         }
-        b.vexnum=i;
+        b.vexnum=i-1;
     }
 }
 void route::for_file()
 {
-    ifstream in("route.txt",ios::in);
+    fstream in;
+    in.open("route.txt",ios::in);
     if(!in.is_open())
     {
         cout<<"this is a empty file!"<<endl;
@@ -75,47 +63,38 @@ void route::for_file()
     else
     {
         int i,j,k;
-        i=0;
-        while(!in.eof())
+        i=j=0;
+        in>>num;
+        while(i<num)
         {
-            j=in.get();
-            if(j==10)
-                break;
+            in>>k;
             i++;
         }
-        num=(i-1)/2;//路由器的数目为i;
-        i=k=0;
-        in.get();//把每次前面的路由器的名称删除。
+        i=0;
+        in>>k;
         while(!in.eof())
         {
-            j=in.get();
-            if(j>48&&j<58)
-            {
-                j=j-48;
-                table[i][k]=j;
-                k++;
-            }
-            else if(j==109)
-            {
-                table[i][k]=max;
-                k++;
-            }
-            else if(j==10)
+            in>>table[i][j];
+            j++;
+            if(j==num)
             {
                 i++;
-                k=0;
-                in.get();//把每次前面的路由器的名称删除。
+                in>>k;
+                j=0;
             }
         }
     }
+
 }
 void out_file()
 {
-    ofstream out("mingkong.txt",ios::out);
+    ofstream out("mingwang.txt",ios::out);
     for(int i=0;i<b.vexnum+1;i++)
     {
+
         for(int k=0;b.vexs[i].introduction[k]!='\0';k++)
         {
+            //cout<<b.vexs[i].introduction[k];
             out.put(b.vexs[i].introduction[k]);
         }
         out.put(10);

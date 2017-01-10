@@ -29,6 +29,9 @@ void cmd()
             system("cls");
         case 4:
             print(&b);
+            int ans;
+            ans=prim();
+//cout<<ans;
             getchar();
             getchar();
             system("cls");
